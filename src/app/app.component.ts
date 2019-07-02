@@ -1,7 +1,8 @@
-import { AuthFireService } from './services/auth-fire.service';
+import { AuthFireService } from 'shared/services/auth-fire.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from './services/user.service';
+import { UserService } from 'shared/services/user.service';
+
 
 @Component({
   selector: 'app-root',

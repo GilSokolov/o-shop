@@ -1,0 +1,39 @@
+<div class="container">
+    <p>
+        <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+    </p>
+    <p class="form-group">
+        <input #query (keyup)="filter(query.value)" type="text" class="form-control" placeholder="Search...">
+    </p>
+   <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" sortable="title" (sort)="onSort($event)">Title</th>
+                <th scope="col" sortable="price" (sort)="onSort($event)">Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let p of filteredProducts| slice: (state.page-1) * state.pageSize : (state.page-1) * state.pageSize + state.pageSize">
+            <tr>
+                <td>{{ p.title }}</td>
+                <td>{{ p.price }}</td>
+                <td>
+                    <a [routerLink]="['/admin/products/', p.id]">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+   </div>
+    <div *ngIf="filteredProducts" class="d-flex justify-content-between p-2">
+        <ngb-pagination
+            [collectionSize]="filteredProducts.length" [(page)]="state.page" [pageSize]="state.pageSize">
+        </ngb-pagination>
+
+        <select class="custom-select" style="width: auto" name="pageSize"  [(ngModel)]="state.pageSize">
+            <option [ngValue]="2">2 items per page</option>
+            <option [ngValue]="4">4 items per page</option>
+            <option [ngValue]="6">6 items per page</option>
+        </select>
+    </div>
+</div>

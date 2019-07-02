@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-lg-3">
+        <ul class="list-group">
+            <li
+              [routerLink]="['/']"
+              [queryParams]="category.id && {category: category.id}" 
+              class="list-group-item" 
+              *ngFor="let category of categories" 
+              (click)="onSelect(category)" 
+              [class.active]="category.id === selectedCategory">
+              {{ category.name }}
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="filteredProducts && filteredProducts.length" class="col-md-8 col-lg-9">
+        <div class="card-columns">
+            <div class="card" style="width: 18rem;" *ngFor="let product of filteredProducts">
+                <img [src]="product.imageUrl" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title">{{ product.title }}</h5>
+                  <p class="card-text">{{ product.price | currency:USD }}</p>
+                  <a class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div> 
+    </div>
+  </div>
+</div>
+

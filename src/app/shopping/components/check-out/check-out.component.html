@@ -1,0 +1,16 @@
+<div class="container">
+  <h2 class="text-center text-md-left">Shipping</h2>
+  <div class="row" *ngIf="cart$ | async as cart">
+    <div class="mb-3 mb-md-0 order-md-last col-md-6">
+      <shopping-cart-summary [cart]="cart"></shopping-cart-summary>
+    </div>
+    <div class="order-md-first col-md-6">
+      <div class="card" style="height: 100%">
+        <div class="card-body">
+          <shipping-form [cart]="cart"></shipping-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
