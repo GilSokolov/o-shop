@@ -23,6 +23,7 @@ export interface OrderItem {
 export class Order {
     datePlaced: number;
     items: OrderItem[];
+    total: number;
 
     constructor(
         public userId: string,
@@ -30,6 +31,7 @@ export class Order {
         shopingCart: ShopingCart) {
         this.datePlaced = new Date().getTime();
         this.items = shopingCart.items.map(this.mapOrderItems);
+        this.total = shopingCart.totalPrice;
     }
 
     private mapOrderItems(item: ShopingCartItem): OrderItem {

@@ -1,6 +1,7 @@
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductQuantityComponent } from './components/product-quantity/product-quantity.component';
@@ -25,6 +26,7 @@ import { CustomFormsModule } from 'ng2-validation';
     AngularFirestoreModule,
     AngularFireAuthModule,
     CustomFormsModule,
+    RouterModule
   ],
   exports: [
     NgbModule,

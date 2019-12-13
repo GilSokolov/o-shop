@@ -1,3 +1,71 @@
-<p>
-  order-success works!
-</p>
+<div class="container">
+  <div *ngIf="showHeader">
+    <i class="fas fa-check-circle display-4 text-success d-flex justify-content-center"></i>
+    <h2 class="text-center">Thank you for your purchace!</h2>
+    <p class="text-center"><span class="badge badge-pill badge-info">
+      YOUR REFERENCE ID IS: {{ orderId }}
+    </span></p>
+  </div>
+  <div *ngIf="order">
+    <div class="card">
+      <div class="card-header">
+        BILLING ADDRESS
+      </div>
+      <div class="card-body">
+        <p class="card-text"><strong>NAME:</strong> {{ order.shipping.name }}</p>
+        <p class="card-text"><strong>CITY:</strong> {{ order.shipping.city }}</p>
+        <p class="card-text"><strong>ADDRESS 1:</strong> {{ order.shipping.addressLine1 }}</p>
+        <p class="card-text"><strong>ADDRESS 2:</strong> {{ order.shipping.addressLine2 }}</p>
+      </div>
+    </div>
+    <br>
+    <div class="card">
+      <div class="card-header">
+        ORDER SUMMARY
+      </div>
+      <div class="card-body"> 
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="text-center">
+                  <div class="row justify-content-center align-items-center">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        Product
+                    </div>
+                  </div>
+                </th>
+                <th class="text-center">Quantity</th>
+                <th class="text-center" >Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of order.items">
+                <td>
+                  <div class="row justify-content-center align-items-center">
+                    <div class="col-md-6">
+                        <div class="thumbnail" [style.backgroundImage]="'url(' + item.product.imageUrl + ')'"></div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="text-center align-middle h-100">{{ item.product.title }}</div>
+                    </div>
+                  </div>
+                </td><td  class="text-center align-middle h-100">{{ item.quantity }}</td>
+                <td class="text-center">{{ item.totalPrice | currency }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th></th>
+                <th class="text-center">{{ order.total | currency }}</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>

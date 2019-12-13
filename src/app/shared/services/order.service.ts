@@ -4,7 +4,7 @@ import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Order } from 'shared/models/app-order';
 import { firePayload, FireDoc } from '../../helpers/firebase';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -27,8 +27,15 @@ export class OrderService {
     return this.db.collection('orders').snapshotChanges().pipe(map(firePayload));
   }
 
-  getOrderById(id: string): Observable<Order[]> {
+  getOrdersById(id: string): Observable<FireDoc[]> {
     return this.db.collection<Order>('orders', ref => ref.where('userId', '==', id))
-    .valueChanges();
+    .snapshotChanges().pipe(map(firePayload));
+  }
+
+  getOrderById(orderId) {
+    return this.auth.appUser$.pipe(switchMap(user => {
+      return this.db.collection<Order>('orders', ref => ref.where('userId', '==', user.id)).doc(orderId)
+      .valueChanges();
+    }));
   }
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { take, map } from 'rxjs/operators';
 import { ShopingCart } from 'shared/models/app-shoping-cart';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { DocToMap, firePayload } from '../../helpers/firebase';
 
 interface ShopingCartDoc {
@@ -15,9 +15,21 @@ interface ShopingCartDoc {
 })
 export class ShopingCartService {
   private cartsCollection: AngularFirestoreCollection<any>;
+  private cart: BehaviorSubject<ShopingCart> = new BehaviorSubject(new ShopingCart({}));
+  readonly cart$: Observable<ShopingCart> = this.cart.asObservable();
+
 
   constructor(private db: AngularFirestore) {
     this.cartsCollection = this.db.collection('shoping-carts');
+    this.init();
+  }
+
+  async init() {
+    const cart = await this.getCart();
+    return cart.collection('items')
+      .snapshotChanges()
+      .pipe(map(DocToMap))
+      .subscribe(item => this.cart.next(new ShopingCart(item)));
   }
 
   private create() {
@@ -42,11 +54,7 @@ export class ShopingCartService {
   }
 
   async getItems(): Promise<Observable<ShopingCart>> {
-    const cart = await this.getCart();
-    return cart.collection('items')
-      .snapshotChanges()
-      .pipe(map(DocToMap))
-      .pipe(map(item => new ShopingCart(item)));
+    return Promise.resolve(this.cart$);
   }
 
   async addToCart(product: Product) {

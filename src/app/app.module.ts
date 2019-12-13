@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { BrowserModule } from '@angular/platform-browser';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { SharedModule } from 'shared/shared.module';
 import { environment } from 'src/environments/environment';
 
@@ -9,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { ShoppingModule } from './shopping/shopping.module';
+
 
 
 
@@ -23,7 +25,8 @@ import { ShoppingModule } from './shopping/shopping.module';
     SharedModule,
     AdminModule,
     ShoppingModule,
-    CoreModule
+    CoreModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

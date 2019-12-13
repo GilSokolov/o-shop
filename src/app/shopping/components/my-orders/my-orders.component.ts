@@ -13,13 +13,13 @@ import { switchMap } from 'rxjs/operators';
 export class MyOrdersComponent implements OnInit {
   orders$: Observable<Order[]>;
   constructor(
-    private orderService: OrderService, 
+    private orderService: OrderService,
     private auth: AuthFireService) { }
 
   ngOnInit() {
     this.orders$ = this.auth.appUser$.pipe(switchMap(user => {
       if (!user) { return of(null); }
-      return this.orderService.getOrderById(user.id);
+      return this.orderService.getOrdersById(user.id);
     }));
   }
 

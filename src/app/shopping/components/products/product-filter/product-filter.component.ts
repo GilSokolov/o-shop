@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CategoryService } from 'shared/services/category.service';
+import { Category } from 'shared/models/app-category';
 
 @Component({
   selector: 'app-product-filter',
@@ -8,11 +9,11 @@ import { CategoryService } from 'shared/services/category.service';
   styleUrls: ['./product-filter.component.css']
 })
 export class ProductFilterComponent {
-  categories$: Observable<any>;
+  categories$: Observable<Category[]>;
   @Input() category: string;
 
   constructor(private categoryService: CategoryService) {
-    this.categories$ = this.categoryService.getAll();
+    this.categories$ = this.categoryService.categories$;
   }
 
 }

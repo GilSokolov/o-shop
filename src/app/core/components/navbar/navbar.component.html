@@ -13,10 +13,7 @@
         </a>
       </li>
     </ul>
-    <button class="navbar-toggler" type="button" (click)="toggelNavbar()">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" [class.show]="collapse">
+    <div class="collapse navbar-collapsev d-flex justify-content-end" [class.show]="collapse">
       <ul class="navbar-nav">
         <ng-template #showLogin>
           <li class="nav-item active">

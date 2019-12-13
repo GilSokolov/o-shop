@@ -1,0 +1,17 @@
+.product-quantity-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+strong {
+    flex: 5;
+    text-align: center;
+}
+
+button {
+    flex: 1;
+    max-width: 40px;
+    flex-basis: 100%;
+}
